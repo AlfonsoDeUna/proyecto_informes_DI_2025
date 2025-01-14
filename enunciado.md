@@ -80,4 +80,6 @@ CREATE TABLE Reservas (
    - Reportes bien formateados y funcionales.  
    - Calidad del código y documentación.
    - modificaciones pedidas por mí
+   - explicaciones de la parte que te pida del código
+     
 
