@@ -8,6 +8,7 @@ import dataClases.Client;
 import dataClases.Room;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -70,6 +71,35 @@ public class DatabaseQuery {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return list;
+    }
+    
+    public List<Book> getBookByClient(int clientID) {
+        List<Book> list = new ArrayList<>();
+        String sql = "SELECT * FROM Reservas WHERE ID_Cliente = ?";
+
+        try (Connection conn = database.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, clientID);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("ID");
+                int idCliente = rs.getInt("ID_Cliente");
+                int idHabitacion = rs.getInt("ID_Habitación");
+                String fechaInicio = rs.getString("Fecha_Inicio");
+                String fechaFin = rs.getString("Fecha_Fin");
+                double total = rs.getDouble("Total");
+
+                Book book = new Book(id, idCliente, idHabitacion, fechaInicio, fechaFin, total);
+                list.add(book);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return list;
     }
 }
