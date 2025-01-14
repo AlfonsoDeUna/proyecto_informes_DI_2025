@@ -24,7 +24,7 @@ El objetivo del proyecto es desarrollar una aplicación que permita gestionar la
 - **Habitaciones**: `ID`, `Número`, `Tipo`, `Precio por noche`
 - **Reservas**: `ID`, `ID_Cliente`, `ID_Habitación`, `Fecha_Inicio`, `Fecha_Fin`, `Total`
 
-**Ejemplo de Creación de Tablas** (SQLite):
+**Creación de Tablas** (SQLite) puede ser otro gestor de base de datos.
 
 ```sql
 CREATE TABLE Clientes (
