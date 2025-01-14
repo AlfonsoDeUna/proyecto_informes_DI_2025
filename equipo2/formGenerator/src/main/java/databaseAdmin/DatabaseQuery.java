@@ -64,7 +64,6 @@ public class DatabaseQuery {
         try (Connection conn = database.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT * FROM Reservas")) {
-        	if (rs.next())
 
             while (rs.next()) {
                 String book = "ID: " + rs.getInt("ID") +
@@ -82,4 +81,3 @@ public class DatabaseQuery {
         return list;
     }
 }
-
