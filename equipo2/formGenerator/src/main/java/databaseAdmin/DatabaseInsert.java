@@ -11,7 +11,6 @@ public class DatabaseInsert {
         this.database = database;
     }
 
-    // Insertar datos en la tabla Clientes
     public void insertClient(String nombre, String apellido, String telefono, String email) {
         String sql = "INSERT INTO Clientes (Nombre, Apellido, Telefono, Email) VALUES (?, ?, ?, ?)";
         try (Connection conn = database.getConnection();
@@ -30,7 +29,6 @@ public class DatabaseInsert {
         }
     }
 
-    // Insertar datos en la tabla Habitaciones
     public void insertRoom(int numero, String tipo, double precio) {
         String sql = "INSERT INTO Habitaciones (Numero, Tipo, Precio) VALUES (?, ?, ?)";
         try (Connection conn = database.getConnection();
@@ -48,7 +46,6 @@ public class DatabaseInsert {
         }
     }
 
-    // Insertar datos en la tabla Reservas
     public void insertReservation(int idCliente, int idHabitacion, String fechaInicio, String fechaFin, double total) {
         String sql = "INSERT INTO Reservas (ID_Cliente, ID_Habitación, Fecha_Inicio, Fecha_Fin, Total) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = database.getConnection();
