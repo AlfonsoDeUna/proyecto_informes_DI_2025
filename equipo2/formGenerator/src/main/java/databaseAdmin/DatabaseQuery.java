@@ -6,8 +6,6 @@ import java.util.List;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 public class DatabaseQuery {
 
@@ -66,6 +64,7 @@ public class DatabaseQuery {
         try (Connection conn = database.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT * FROM Reservas")) {
+        	if (rs.next())
 
             while (rs.next()) {
                 String book = "ID: " + rs.getInt("ID") +
