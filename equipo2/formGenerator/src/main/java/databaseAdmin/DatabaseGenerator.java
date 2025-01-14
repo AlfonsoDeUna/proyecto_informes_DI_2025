@@ -43,6 +43,8 @@ public class DatabaseGenerator {
             stmt.close();
             c.commit();
 
+            insertarDatosIniciales();
+
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
@@ -69,5 +71,18 @@ public class DatabaseGenerator {
             e.printStackTrace();
         }
         return c;
+    }
+
+    private void insertarDatosIniciales() {
+        DatabaseInsert databaseInsert = new DatabaseInsert(this);
+
+        databaseInsert.insertClient("Paul", "Alonso", "+34 675 852 761", "pAlonso12999@gamil.es");
+        databaseInsert.insertClient("Alfonso", "Martinez", "+34 671 489 525", "aMartinez33@gmail.com");
+
+        databaseInsert.insertRoom(101, "Sencilla", 50.0);
+        databaseInsert.insertRoom(102, "Doble", 80.0);
+
+        databaseInsert.insertReservation(1, 101, "2023-01-01", "2023-01-03", 100.0);
+        databaseInsert.insertReservation(2, 102, "2023-01-05", "2023-01-07", 160.0);
     }
 }
