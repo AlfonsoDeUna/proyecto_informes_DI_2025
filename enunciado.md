@@ -1,6 +1,5 @@
 # Sistema de Reporting para Gestión de Reservas de Hotel
 
-
 El objetivo del proyecto es desarrollar una aplicación que permita gestionar las reservas de un hotel y generar reportes detallados en formato PDF y Excel. La aplicación debe cubrir las siguientes funcionalidades:
 
 1. **Gestión de la Base de Datos**  
@@ -16,9 +15,7 @@ El objetivo del proyecto es desarrollar una aplicación que permita gestionar la
    - Incluir pruebas unitarias y de integración.
    - Diario de uso de chatGPT
 
----
-
-### Especificaciones Técnicas
+## Especificaciones Técnicas
 
 #### 1. Base de Datos
 
@@ -77,10 +74,11 @@ CREATE TABLE Reservas (
    - Incluir capturas de pantalla de los reportes generados.
 
 4. **Evaluación del Proyecto**  
-   - Correcta implementación de la base de datos.  
+   - Correcta implementación de la base de datos y el código 
    - Reportes bien formateados y funcionales.  
    - Calidad del código y documentación.
-   - modificaciones pedidas por mí
-   - explicaciones de la parte que te pida del código
-     
+   - modificaciones pedidas por mí.
+   - Explicaciones en el momento de la parte que te pida del código.
+   - Comprensión del problema y capacidad de identificar y corregir errores.
+   - Reflexión crítica sobre las respuestas de ChatGPT.
 
