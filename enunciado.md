@@ -14,6 +14,7 @@ El objetivo del proyecto es desarrollar una aplicación que permita gestionar la
 3. **Documentación y Pruebas**  
    - Documentar el diseño de la base de datos y la estructura del código.  
    - Incluir pruebas unitarias y de integración.
+   - Diario de uso de chatGPT
 
 ---
 
