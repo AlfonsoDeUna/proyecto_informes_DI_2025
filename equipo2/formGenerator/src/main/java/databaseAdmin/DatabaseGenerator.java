@@ -72,6 +72,24 @@ public class DatabaseGenerator {
         }
         return c;
     }
+    
+    private int countColumns(String tableName) {
+        int columnCount = 0;
+        try {
+            String query = "PRAGMA table_info(" + tableName + ");";
+            stmt = c.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                columnCount++;
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return columnCount;
+    }
 
     private void insertarDatosIniciales() {
         DatabaseInsert databaseInsert = new DatabaseInsert(this);
