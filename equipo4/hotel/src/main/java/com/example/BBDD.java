@@ -15,7 +15,7 @@ import com.itextpdf.layout.element.List;
 
 public class BBDD {
     public static void main(String[] args) {
-        String bdUrl = "jdbc:sqlite:Hotel.db"; // URL de la base de datos
+        String bdUrl = "jdbc:sqlite:HotelDb.sql"; // URL de la base de datos
         String dest = "Hotel.pdf"; //Nombre del archivo a generar
 
         try{
