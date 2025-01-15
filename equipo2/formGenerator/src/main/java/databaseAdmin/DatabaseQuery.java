@@ -64,7 +64,7 @@ public class DatabaseQuery {
              ResultSet rs = stmt.executeQuery("SELECT * FROM Reservas")) {
 
             while (rs.next()) {
-                Book book = new Book(rs.getInt("ID"),rs.getInt("ID_Cliente"),rs.getInt("ID_Habitación"),rs.getString("Fecha_Inicio"), rs.getString("Fecha_Fin"), rs.getDouble("Total"));
+                Book book = new Book(rs.getInt("ID"),rs.getInt("ID_Cliente"),rs.getInt("ID_Habitacion"),rs.getString("Fecha_Inicio"), rs.getString("Fecha_Fin"), rs.getDouble("Total"));
                 list.add(book);
             }
 
@@ -87,7 +87,7 @@ public class DatabaseQuery {
             while (rs.next()) {
                 int id = rs.getInt("ID");
                 int idCliente = rs.getInt("ID_Cliente");
-                int idHabitacion = rs.getInt("ID_Habitación");
+                int idHabitacion = rs.getInt("ID_Habitacion");
                 String fechaInicio = rs.getString("Fecha_Inicio");
                 String fechaFin = rs.getString("Fecha_Fin");
                 double total = rs.getDouble("Total");
@@ -103,21 +103,44 @@ public class DatabaseQuery {
         return list;
     }
     
-    public String getRoomTypeByBookID(int bookID) {
-        String roomType = null;
-        String sql = "SELECT h.Tipo " +
-                     "FROM Reservas r " +
-                     "JOIN Habitaciones h ON r.ID_Habitación = h.ID " +
-                     "WHERE r.ID = ?";
+    public double getRoomPrice(int roomID) {
+        double price = -1;
+        String sql = "SELECT Precio FROM Habitaciones WHERE Numero = ?";
 
         try (Connection conn = database.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, bookID);
+            pstmt.setInt(1, roomID);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                price = rs.getDouble("precio");
+            } else {
+                System.out.println("No se encontró una habitación con ID: " + roomID);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return price;
+    }
+
+    
+    public String getRoomType(int roomNumber) {
+        String roomType = null;
+        String sql = "SELECT Tipo FROM Habitaciones WHERE Numero = ?";
+
+        try (Connection conn = database.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, roomNumber);
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
                 roomType = rs.getString("Tipo");
+            } else {
+                System.out.println("No se encontró una habitación con número: " + roomNumber);
             }
 
         } catch (Exception e) {
@@ -126,4 +149,7 @@ public class DatabaseQuery {
 
         return roomType;
     }
+
+
+
 }

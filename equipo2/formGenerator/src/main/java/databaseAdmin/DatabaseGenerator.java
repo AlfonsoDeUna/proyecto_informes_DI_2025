@@ -29,30 +29,29 @@ public class DatabaseGenerator {
                     "Precio DOUBLE NOT NULL);";
 
             String tbReservas = "CREATE TABLE IF NOT EXISTS Reservas (" +
-                    "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "ID_Cliente INTEGER," +
-                    "ID_Habitación INTEGER," +
-                    "Fecha_Inicio TEXT NOT NULL," +
-                    "Fecha_Fin TEXT NOT NULL," +
-                    "Total DOUBLE NOT NULL," +
-                    "FOREIGN KEY (ID_Cliente) REFERENCES Clientes(ID)," +
-                    "FOREIGN KEY (ID_Habitación) REFERENCES Habitaciones(ID));";
+            	    "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
+            	    "ID_Cliente INTEGER," +
+            	    "ID_Habitacion INTEGER," +
+            	    "Fecha_Inicio TEXT NOT NULL," +
+            	    "Fecha_Fin TEXT NOT NULL," +
+            	    "Total DOUBLE NOT NULL," +
+            	    "FOREIGN KEY (ID_Cliente) REFERENCES Clientes(ID)," +
+            	    "FOREIGN KEY (ID_Habitacion) REFERENCES Habitaciones(Numero));";
 
             stmt.executeUpdate(tbClientes);
             stmt.executeUpdate(tbHabitaciones);
             stmt.executeUpdate(tbReservas);
 
-            stmt.close();
-            c.commit();
-
             insertarDatosIniciales();
-
+            c.commit();
+            
+            System.out.println("Tablas creadas con éxito y datos iniciales insertados.");
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
+            e.printStackTrace();
         }
-        System.out.println("Opened database successfully");
     }
+
 
     public void cerrarBBDD() {
         try {
