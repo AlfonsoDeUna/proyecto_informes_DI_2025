@@ -20,7 +20,7 @@ public class ExcelGenerator {
 
     public ExcelGenerator(String fileName) {
         this.filePath = "./src/main/resources";
-        this.fileName = fileName;
+        this.fileName = "InformeExcel.xlsx";
         this.database = new DatabaseGenerator();
         this.dataQuery = new DatabaseQuery(database);
     }
@@ -33,10 +33,6 @@ public class ExcelGenerator {
 
         // Obtener datos de reservas
         List<Client> clients = dataQuery.getClients();
-        List<Book> reservations = null;
-        for (Client cliente : clients) {
-        	reservations.add((Book) dataQuery.getBookByClient(cliente.getID()));
-        }
         
         
         try (Workbook workbook = new XSSFWorkbook()) {
@@ -56,19 +52,20 @@ public class ExcelGenerator {
 
             // Escribir los datos de las reservas
             int rowNum = 1;
-            for (Book book : reservations) {
-                Row row = sheet.createRow(rowNum++);
-                row.createCell(0).setCellValue(book.getID());
-                row.createCell(1).setCellValue(book.getIdCliente());
-                row.createCell(2).setCellValue(); // Reemplaza con los datos del cliente
-                row.createCell(3).setCellValue("ApellidoCliente"); // Reemplaza con los datos del cliente
-                row.createCell(4).setCellValue(book.getIdHabitacion());
-                row.createCell(5).setCellValue("TipoHabitacion"); // Reemplaza con los datos de la habitación
-                row.createCell(6).setCellValue(100.0);
-                row.createCell(7).setCellValue(book.getID());
-                row.createCell(8).setCellValue(book.getFechaInicio().toString());
-                row.createCell(9).setCellValue(book.getFechaFin().toString());
-                row.createCell(10).setCellValue(book.getTotal());
+            for (Client client : clients) {
+                for (Book book : dataQuery.getBookByClient(client.getID())) {
+                    Row row = sheet.createRow(rowNum++);
+                    row.createCell(0).setCellValue(book.getID());
+                    row.createCell(1).setCellValue(book.getIdCliente());
+                    row.createCell(2).setCellValue(client.getNombre());
+                    row.createCell(3).setCellValue(client.getApellido());
+                    row.createCell(4).setCellValue(book.getIdHabitacion());
+                    row.createCell(5).setCellValue(dataQuery.getRoomTypeByBookID(book.getID()));
+                    row.createCell(7).setCellValue(book.getID());
+                    row.createCell(8).setCellValue(book.getFechaInicio().toString());
+                    row.createCell(9).setCellValue(book.getFechaFin().toString());
+                    row.createCell(10).setCellValue(book.getTotal());
+                }
             }
 
             // Ajustar columnas al contenido

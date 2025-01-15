@@ -102,4 +102,28 @@ public class DatabaseQuery {
 
         return list;
     }
+    
+    public String getRoomTypeByBookID(int bookID) {
+        String roomType = null;
+        String sql = "SELECT h.Tipo " +
+                     "FROM Reservas r " +
+                     "JOIN Habitaciones h ON r.ID_Habitación = h.ID " +
+                     "WHERE r.ID = ?";
+
+        try (Connection conn = database.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, bookID);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                roomType = rs.getString("Tipo");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return roomType;
+    }
 }
