@@ -3,12 +3,13 @@ package com.example;
 import java.util.Scanner;
 
 public class Main {
-    
+
     public static void main(String[] args) {
 
         GeneradorReportesExcel crearxlsx = new GeneradorReportesExcel();
-       
-         Scanner scanner = new Scanner(System.in);
+        GeneradorReportesPDF crearPdf = new GeneradorReportesPDF();
+
+        Scanner scanner = new Scanner(System.in);
         int opcion;
 
         // Menú principal
@@ -24,14 +25,15 @@ public class Main {
             // Ejecutar según la opción seleccionada
             switch (opcion) {
                 case 1:
-                   // meterReserva();
+                    // meterReserva();
                     break;
                 case 2:
-                   // sacarInformePDF();
+                    crearPdf.sacarInformePDF();
+
                     break;
                 case 3:
-                   // sacarInformeExcel();
-                   crearxlsx.crearxlsx();
+                    // sacarInformeExcel();
+                    crearxlsx.crearxlsx();
                     break;
                 case 4:
                     System.out.println("Saliendo del programa...");
@@ -45,5 +47,5 @@ public class Main {
 
         scanner.close();
     }
-   
+
 }
