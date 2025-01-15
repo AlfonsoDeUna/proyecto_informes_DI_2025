@@ -65,4 +65,15 @@ public class Book {
     public void setTotal(double total) {
         this.total = total;
     }
+    
+    @Override
+    public String toString() {
+        return "ID: " + ID +
+               ", ID Cliente: " + idCliente +
+               ", ID Habitación: " + idHabitacion +
+               ", Fecha Inicio: " + fechaInicio +
+               ", Fecha Fin: " + fechaFin +
+               ", Total: " + total;
+    }
+
 }

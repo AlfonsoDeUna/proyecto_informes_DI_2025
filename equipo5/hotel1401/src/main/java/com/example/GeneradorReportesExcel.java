@@ -12,8 +12,10 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class GeneradorReportesExcel {
-        public static void main(String[] args) {
-        String dbUrl = "jdbc:sqlite:proyecto_informes_DI_2025/equipo5/hotel1401/src/main/Database/hotel.db";
+
+    public void crearxlsx(){
+
+        String dbUrl = "jdbc:sqlite:equipo5/hotel1401/src/main/Database/hotel.db";
             // Asegúrate de usar la ruta correcta
         String dest = "proyecto_informes_DI_2025/equipo5/Reportes/Reservas.xlsx"; // Nombre del archivo Excel a generar
 
@@ -49,7 +51,6 @@ public class GeneradorReportesExcel {
                 row.createCell(0).setCellValue(rs.getString("Apellido"));  // Cambia "id" por el nombre de tu columna
 
             }
-
             // Ajustar el tamaño de las columnas para que el texto se ajuste bien
             for (int i = 0; i < 3; i++) {
                 sheet.autoSizeColumn(i);
@@ -71,4 +72,5 @@ public class GeneradorReportesExcel {
             e.printStackTrace();
         }
     }
+    
 }
