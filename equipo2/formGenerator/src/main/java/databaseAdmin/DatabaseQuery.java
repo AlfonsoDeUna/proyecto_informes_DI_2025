@@ -3,7 +3,12 @@ package databaseAdmin;
 import java.util.ArrayList;
 import java.util.List;
 
+import dataClases.Book;
+import dataClases.Client;
+import dataClases.Room;
+
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -16,18 +21,14 @@ public class DatabaseQuery {
     }
 
     // Método para obtener clientes
-    public List<String> getClients() {
-        List<String> list = new ArrayList<>();
+    public List<Client> getClients() {
+        List<Client> list = new ArrayList<Client>();
         try (Connection conn = database.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT * FROM Clientes")) {
 
             while (rs.next()) {
-                String client = "ID: " + rs.getInt("ID") +
-                                ", Nombre: " + rs.getString("Nombre") +
-                                ", Apellido: " + rs.getString("Apellido") +
-                                ", Teléfono: " + rs.getString("Telefono") +
-                                ", Email: " + rs.getString("Email");
+                Client client = new Client(rs.getInt("ID"),rs.getString("Nombre"),rs.getString("Apellido"),rs.getString("Telefono"),rs.getString("Email"));
                 list.add(client);
             }
 
@@ -38,17 +39,14 @@ public class DatabaseQuery {
     }
 
     // Método para obtener habitaciones
-    public List<String> getRooms() {
-        List<String> list = new ArrayList<>();
+    public List<Room> getRooms() {
+        List<Room> list = new ArrayList<Room>();
         try (Connection conn = database.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT * FROM Habitaciones")) {
 
             while (rs.next()) {
-                String room = "ID: " + rs.getInt("ID") +
-                              ", Número: " + rs.getInt("Numero") +
-                              ", Tipo: " + rs.getString("Tipo") +
-                              ", Precio: " + rs.getDouble("Precio");
+                Room room = new Room(rs.getInt("ID"), rs.getInt("Numero"), rs.getString("Tipo"), rs.getDouble("Precio"));
                 list.add(room);
             }
 
@@ -59,19 +57,14 @@ public class DatabaseQuery {
     }
 
     // Método para obtener reservas
-    public List<String> getBooks() {
-        List<String> list = new ArrayList<>();
+    public List<Book> getBooks() {
+        List<Book> list = new ArrayList<Book>();
         try (Connection conn = database.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT * FROM Reservas")) {
 
             while (rs.next()) {
-                String book = "ID: " + rs.getInt("ID") +
-                              ", ID Cliente: " + rs.getInt("ID_Cliente") +
-                              ", ID Habitación: " + rs.getInt("ID_Habitación") +
-                              ", Fecha Inicio: " + rs.getString("Fecha_Inicio") +
-                              ", Fecha Fin: " + rs.getString("Fecha_Fin") +
-                              ", Total: " + rs.getDouble("Total");
+                Book book = new Book(rs.getInt("ID"),rs.getInt("ID_Cliente"),rs.getInt("ID_Habitacion"),rs.getString("Fecha_Inicio"), rs.getString("Fecha_Fin"), rs.getDouble("Total"));
                 list.add(book);
             }
 
@@ -80,4 +73,83 @@ public class DatabaseQuery {
         }
         return list;
     }
+    
+    public List<Book> getBookByClient(int clientID) {
+        List<Book> list = new ArrayList<>();
+        String sql = "SELECT * FROM Reservas WHERE ID_Cliente = ?";
+
+        try (Connection conn = database.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, clientID);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("ID");
+                int idCliente = rs.getInt("ID_Cliente");
+                int idHabitacion = rs.getInt("ID_Habitacion");
+                String fechaInicio = rs.getString("Fecha_Inicio");
+                String fechaFin = rs.getString("Fecha_Fin");
+                double total = rs.getDouble("Total");
+
+                Book book = new Book(id, idCliente, idHabitacion, fechaInicio, fechaFin, total);
+                list.add(book);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+    
+    public double getRoomPrice(int roomID) {
+        double price = -1;
+        String sql = "SELECT Precio FROM Habitaciones WHERE Numero = ?";
+
+        try (Connection conn = database.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, roomID);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                price = rs.getDouble("precio");
+            } else {
+                System.out.println("No se encontró una habitación con ID: " + roomID);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return price;
+    }
+
+    
+    public String getRoomType(int roomNumber) {
+        String roomType = null;
+        String sql = "SELECT Tipo FROM Habitaciones WHERE Numero = ?";
+
+        try (Connection conn = database.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, roomNumber);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                roomType = rs.getString("Tipo");
+            } else {
+                System.out.println("No se encontró una habitación con número: " + roomNumber);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return roomType;
+    }
+
+
+
 }
