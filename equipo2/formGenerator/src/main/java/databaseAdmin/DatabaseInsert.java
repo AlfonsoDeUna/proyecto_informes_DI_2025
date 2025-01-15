@@ -47,7 +47,7 @@ public class DatabaseInsert {
     }
 
     public void insertReservation(int idCliente, int idHabitacion, String fechaInicio, String fechaFin, double total) {
-        String sql = "INSERT INTO Reservas (ID_Cliente, ID_Habitación, Fecha_Inicio, Fecha_Fin, Total) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Reservas (ID_Cliente, ID_Habitacion, Fecha_Inicio, Fecha_Fin, Total) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = database.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
