@@ -6,7 +6,8 @@ public class Main {
     
     public static void main(String[] args) {
 
-        
+        GeneradorReportesExcel crearxlsx = new GeneradorReportesExcel();
+       
          Scanner scanner = new Scanner(System.in);
         int opcion;
 
@@ -30,6 +31,7 @@ public class Main {
                     break;
                 case 3:
                    // sacarInformeExcel();
+                   crearxlsx.crearxlsx();
                     break;
                 case 4:
                     System.out.println("Saliendo del programa...");
