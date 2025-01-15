@@ -1,6 +1,8 @@
 package databaseAdmin;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseGenerator {
     private Connection c = null;
@@ -73,7 +75,7 @@ public class DatabaseGenerator {
         return c;
     }
     
-    private int countColumns(String tableName) {
+    public int countColumns(String tableName) {
         int columnCount = 0;
         try {
             String query = "PRAGMA table_info(" + tableName + ");";
@@ -89,6 +91,25 @@ public class DatabaseGenerator {
             e.printStackTrace();
         }
         return columnCount;
+    }
+    
+    public List<String> getTableNames() {
+        List<String> tableNames = new ArrayList<>();
+        try {
+            String query = "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%';";
+            stmt = c.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                tableNames.add(rs.getString("name"));
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return tableNames;
     }
 
     private void insertarDatosIniciales() {

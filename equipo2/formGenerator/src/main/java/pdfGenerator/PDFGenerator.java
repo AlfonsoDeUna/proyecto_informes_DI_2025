@@ -14,12 +14,12 @@ import databaseAdmin.DatabaseQuery;
 
 public class PDFGenerator {
 	
+	private static DatabaseGenerator dg = new DatabaseGenerator();
+	private static DatabaseQuery dq = new DatabaseQuery(dg);
+	
 	public static void main(String[] args) throws SQLException {
 		String pdfName = "Reporte_Motel.pdf";
-        DatabaseGenerator dbName = getBBDDName();
-        getQuery(dbName);
-        
-
+		
         try {
             PdfWriter writer = new PdfWriter(pdfName);
             PdfDocument pdf = new PdfDocument(writer);
@@ -36,20 +36,39 @@ public class PDFGenerator {
         }
     }
 
-	private static void getQuery(DatabaseGenerator dbUrl) {
-		DatabaseQuery dq = new DatabaseQuery(dbUrl);
-	}
+	private static void generateTables(Document document) {
+		List<String> nameTable = dg.getTableNames();
+		for(int i = 0; i <= nameTable.size(); i++) {
+			String actualName = nameTable.get(i);
 
-	public static void generateTables(Document document) {
-		Table table = new Table(3);
-		table.addCell("Columna 1");
-		table.addCell("Columna 2");
-		table.addCell("Columna 3");
-		document.add(table);
+			document.add(new Paragraph(actualName));
+			int numColumns = dg.countColumns(actualName);
+			
+			Table table = new Table(numColumns);
+			generateCells(table, actualName);
+			document.add(table);
+		}
 	}
 	
-	public static DatabaseGenerator getBBDDName() {
-		DatabaseGenerator dg = new DatabaseGenerator();
-		return dg;
+	private static void generateCells(Table table, String actualName) {
+		List<?> content = null;
+		
+		switch (actualName) {
+			case "Clientes":
+				content = dq.getClients();
+				break;
+				
+			case "Habitaciones":
+				content = dq.getRooms();
+				break;
+				
+			case "Reservas":
+				content = dq.getBooks();
+				break;
+		}
+		
+		for(int i = 0; i <= content.size(); i++) {
+			table.addCell(content.get(i).toString());
+		}
 	}
 }
