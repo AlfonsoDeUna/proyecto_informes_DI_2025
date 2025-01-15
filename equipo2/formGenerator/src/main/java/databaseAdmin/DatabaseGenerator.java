@@ -11,7 +11,7 @@ public class DatabaseGenerator {
     public void crearTabla() {
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:motel.db");
+            c = getConnection();
 
             stmt = c.createStatement();
 
@@ -78,6 +78,7 @@ public class DatabaseGenerator {
         int columnCount = 0;
         try {
             String query = "PRAGMA table_info(" + tableName + ");";
+            c = getConnection();
             stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
@@ -96,6 +97,7 @@ public class DatabaseGenerator {
         List<String> tableNames = new ArrayList<>();
         try {
             String query = "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%';";
+            c = getConnection();
             stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
