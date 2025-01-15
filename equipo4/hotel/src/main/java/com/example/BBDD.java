@@ -1,67 +1,60 @@
 package com.example;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-
-
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.List;
-
+import java.sql.*;
+import java.util.List;
+import java.util.ArrayList;
 
 public class BBDD {
-    public static void main(String[] args) {
-        String bdUrl = "jdbc:sqlite:HotelDb.sql"; // URL de la base de datos
-        String dest = "Hotel.pdf"; //Nombre del archivo a generar
+    private Connection c = null;
+    private Statement stmt = null;
 
-        try{
-            // Registrar el controlador JDBC de SQLite
+    public void crearTabla() {
+        try {
             Class.forName("org.sqlite.JDBC");
-            // Establecer la conexión con la base de datos
-            Connection conn = DriverManager.getConnection(bdUrl);
-            Statement stmt = conn.createStatement();
-            // Ejecutar la consulta SQL
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Habitaciones");
-            // Crear un escritor de PDF
-            PdfWriter writer = new PdfWriter(dest);
-            // Crear un documento PDF
-            PdfDocument pdf = new PdfDocument(writer);
-            // Crear un documento de texto
-            Document document = new Document(pdf);
+            c = DriverManager.getConnection("jdbc:sqlite:Hotel.db");
+            stmt = c.createStatement(); // Initialize the statement object
 
-            // Añadir un título al documento
-            document.add(new Paragraph("Listado registro habitaciones").setFontSize(24));
-            // Crear una lista de los datos obtenios
-            List list = new List();
-            list.add("ID");
-            list.add("Numero");
-            list.add("Tipo");
-            list.add("Precio");
-            // Recorrer los resultados de la consulta SQL
+            // Create the Habitaciones table if it doesn't exist
+            String sql = "CREATE TABLE IF NOT EXISTS Habitaciones " +
+                         "(ID INT PRIMARY KEY NOT NULL," +
+                         " Numero TEXT NOT NULL, " +
+                         " Tipo TEXT NOT NULL, " +
+                         " Precio REAL NOT NULL)";
+            stmt.executeUpdate(sql);
+
+            System.out.println("Opened database successfully");
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+    }
+
+    public List<String> getElements() {
+        List<String> list = new ArrayList<>();
+        try {
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Habitaciones;");
+
             while (rs.next()) {
-                // Añadir un elemento a la lista
-                list.add(rs.getString("ID") + " " +
-                 rs.getString("Numero") + " " + 
-                 rs.getString("Tipo") + " " + 
-                 rs.getString("Precio"));
+                list.add(rs.getString("ID"));
+                list.add(rs.getString("Numero"));
+                list.add(rs.getString("Tipo"));
+                list.add(rs.getString("Precio"));
             }
-            // añadir la lista
-            document.add(list);
 
-            // cerrar el documento y la conexión a la base de datos
-            document.close();
             rs.close();
             stmt.close();
-            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 
-            System.out.println("PDF creado en: " + dest);
-        }catch (Exception e){
+    public void cerrarBBDD() {
+        try {
+            if (stmt != null) stmt.close();
+            if (c != null) c.close();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    
 }
