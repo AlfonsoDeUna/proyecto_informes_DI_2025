@@ -3,6 +3,6 @@ Vamos a desarrollar una aplicación que permita gestionar las reservas de un hot
 ## Intro
 
 ## Nombres del equipo
-Galeano, Sergio y Beni (Equipo 3)
+Galeano, Sergio y Benitez (Equipo 3)
 ## Documentación del proyecto
 
