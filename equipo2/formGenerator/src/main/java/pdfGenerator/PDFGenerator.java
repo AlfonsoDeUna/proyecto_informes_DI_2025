@@ -17,7 +17,7 @@ public class PDFGenerator {
 	private static DatabaseGenerator dg = new DatabaseGenerator();
 	private static DatabaseQuery dq = new DatabaseQuery(dg);
 	
-	public static void main(String[] args) throws SQLException {
+	public void execute() {
 		String pdfName = "Reporte_Motel.pdf";
 		
         try {
