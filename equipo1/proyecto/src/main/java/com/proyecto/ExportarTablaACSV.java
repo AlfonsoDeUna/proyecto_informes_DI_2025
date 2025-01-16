@@ -4,16 +4,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class ExportarTablaACSV {
-    public static void main(String[] args) {
+    public static void reportar(String destExcel) {
         String archivoCSV = "TablaExportada.csv";
 
-        // Crear datos de la tabla
         String[][] datos = {
-                {"Cliente", "Habitación", "Fecha de Reserva"},
-                {"Juan Pérez", "101", "2025-01-10"},
-                {"Ana López", "202", "2025-01-12"}
-        };
-
+            {"Cliente", "Habitación", "Fecha de Reserva"},
+            {"Juan Pérez", "101", "2025-01-10"},
+            {"Ana López", "202", "2025-01-12"}
+    };
+    
         // Generar archivo CSV
         try (FileWriter writer = new FileWriter(archivoCSV)) {
             for (String[] fila : datos) {
