@@ -15,7 +15,7 @@ import com.itextpdf.layout.properties.VerticalAlignment;
 public class GeneradorReportesPDF {
 
     public void sacarInformePDF() {
-        String namePdf = "reservas.pdf";
+        String namePdf = "proyecto_informes_DI_2025/equipo5/Reportes/reservas.pdf";
         String bdUrl = "jdbc:sqlite:proyecto_informes_DI_2025/equipo5/hotel1401/src/main/Database/hotel.db";
 
         try {
