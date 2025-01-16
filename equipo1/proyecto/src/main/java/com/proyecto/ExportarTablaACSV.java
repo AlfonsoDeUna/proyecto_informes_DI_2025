@@ -8,9 +8,10 @@ public class ExportarTablaACSV {
         String archivoCSV = "TablaExportada.csv";
 
         String[][] datos = {
-            {"Cliente", "Habitación", "Fecha de Reserva"},
-            {"Juan Pérez", "101", "2025-01-10"},
-            {"Ana López", "202", "2025-01-12"}
+            {"ID", "ID_Cliente", "ID_Habitación", "Fecha_Inicio", "Fecha_Fin", "Total"},
+            {"1", "3", "5", "11-5-2024", "20-6-2024", "156$"},
+            {"7", "5", "69", "12-1-2003", "28-2-2003", "462$"},
+            {"12", "50", "13", "15-10-2025", "31-10-2025", "709$"},
     };
     
         // Generar archivo CSV
