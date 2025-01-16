@@ -7,5 +7,8 @@ public class Main {
 
         String dest = "ReporteHotelEquipo1.pdf"; // Genera pdf
         PdfReportGenerator.generateReport(dest);
+
+        String destExcel = "ReporteHotelEquipo1Excel.csv";
+        ExportarTablaACSV.reportar(destExcel);
     }
 }
