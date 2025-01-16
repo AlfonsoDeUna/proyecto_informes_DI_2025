@@ -2,8 +2,6 @@ package socketClient;
 
 import java.io.*;
 import java.net.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class SocketClient {
@@ -26,14 +24,17 @@ public class SocketClient {
         output = new PrintWriter(socket.getOutputStream(), true);
     }
 
-    public List<String> interactWithServer() throws IOException {
-        List<String> queryResults = new ArrayList<>();
+    public boolean interactWithServer() throws IOException {
         Scanner sc = new Scanner(System.in);
 
         String serverMessage;
-        while ((serverMessage = input.readLine()) != null) {
-            System.out.println("Servidor: " + serverMessage);
+        while ((serverMessage = input.readLine()) != null ) {
+        	if (serverMessage.equalsIgnoreCase("END")) {
+        		break;
+        	}
+            System.out.println("Respuesta del servidor: " + serverMessage);
         }
+
 
         System.out.print("Ingresa tu respuesta: ");
         String userInput = sc.nextLine();
@@ -41,11 +42,15 @@ public class SocketClient {
 
         String queryResult;
         while ((queryResult = input.readLine()) != null) {
-            queryResults.add(queryResult);
-            System.out.println("Respuesta del servidor: " + queryResult);
+        	if (queryResult.equalsIgnoreCase("END")) {
+        		break;
+        	}
+	            System.out.println("Respuesta del servidor: " + queryResult);
         }
-
-        return queryResults;
+        if (queryResult.equalsIgnoreCase("close")) {
+        	return false;
+        }
+        return true;
     }
 
     public void close() throws IOException {

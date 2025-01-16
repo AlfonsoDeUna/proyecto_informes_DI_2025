@@ -22,14 +22,10 @@ public class MainClient {
         try {
             client = new SocketClient(ip);
             client.connect();
+            boolean conexion = true;
 
-            while (true) {
-                List<String> respuesta = client.interactWithServer();
-
-                if (respuesta.isEmpty()) {
-                    System.out.println("Sesión cerrada o no hay respuesta del servidor.");
-                    break;
-                }
+            while (conexion) {
+                conexion=client.interactWithServer();
             }
 
         } catch (UnknownHostException e) {
