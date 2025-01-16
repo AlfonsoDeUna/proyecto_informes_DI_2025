@@ -75,5 +75,4 @@ public class Book {
                ", Fecha Fin: " + fechaFin +
                ", Total: " + total;
     }
-
 }
