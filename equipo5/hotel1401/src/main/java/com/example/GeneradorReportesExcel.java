@@ -15,8 +15,8 @@ public class GeneradorReportesExcel {
 
     public void crearxlsx() {
 
-        String dbUrl = "jdbc:sqlite:equipo5/hotel1401/src/main/Database/hotel.db";
-        String dest = "equipo5/Reportes/Reservas.xlsx"; 
+        String dbUrl = "jdbc:sqlite:proyecto_informes_DI_2025/equipo5/hotel1401/src/main/Database/hotel.db";
+        String dest = "proyecto_informes_DI_2025/equipo5/Reportes/Reservas.xlsx"; 
 
         
         try (
