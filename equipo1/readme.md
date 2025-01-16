@@ -8,3 +8,4 @@ Angel García Ojeda, Mario Serradilla Penido y Daniel Jiménez Zapata
 modelo entidad relacion:
 ![image](https://github.com/user-attachments/assets/633bced4-b0a0-473a-8f9f-a79cbb88513c)
 
+
