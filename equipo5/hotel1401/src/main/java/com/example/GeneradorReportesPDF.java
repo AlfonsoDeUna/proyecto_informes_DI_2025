@@ -49,6 +49,7 @@ public class GeneradorReportesPDF {
             document.add(new Paragraph(""));
 
             List reservasList = new List();
+            
             reservasList.add("ID");
             reservasList.add("ID_Cliente");
             reservasList.add("ID_Habitacion");

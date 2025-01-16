@@ -1,5 +1,5 @@
 hotel1401/pom.xml
-Reportes/Reservas.xlsx
+
 hotel1401/target/classes/com/example/GeneradorReportesExcel.class
 hotel1401/target/classes/com/example/GeneradorReportesPDF.class
 hotel1401/target/classes/com/example/Main.class
