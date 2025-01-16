@@ -18,7 +18,6 @@ public class SocketClient {
     }
 
     public void connect() throws IOException {
-        // Establecer la conexión y los flujos
         socket = new Socket(ip, port);
         input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         output = new PrintWriter(socket.getOutputStream(), true);

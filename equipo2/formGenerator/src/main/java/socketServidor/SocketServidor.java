@@ -48,12 +48,17 @@ public class SocketServidor {
                                 "Seleccione una opción: ");
                         salida.newLine();
                         salida.flush();
+                        
+                        salida.write("END");
+                        salida.newLine();
+                        salida.flush();
 
                         String mensaje = entrada.readLine();
                         System.out.println("Opción recibida: " + mensaje);
 
                         if (mensaje == null || mensaje.equalsIgnoreCase("4")) {
                             System.out.println("El cliente ha terminado la conexión.");
+                            salida.write("CLOSE");
                             break;
                         } else if (mensaje.equals("1")) {
                             List<Client> clientes = dq.getClients();
@@ -77,13 +82,14 @@ public class SocketServidor {
                             salida.write("Opción no válida.\n");
                         }
 
-                        // Señalar el final de los datos
                         salida.write("END");
                         salida.newLine();
                         salida.flush();
                     }
                 }
                 System.out.println("Cliente desconectado.");
+                socket.close();
+                break;
             }
         } catch (IOException e) {
             System.err.println("Error en el servidor: " + e.getMessage());
