@@ -47,7 +47,7 @@ public class GeneradorReportesPDF {
             document.add(new Paragraph(""));
             document.add(new Paragraph(""));
             document.add(new Paragraph(""));
-
+             << << << < HEAD
             Table reservasTable = new Table(6);
             reservasTable.addCell("ID");
             reservasTable.addCell("ID_Cliente");
@@ -55,6 +55,16 @@ public class GeneradorReportesPDF {
             reservasTable.addCell("Fecha_Inicio");
             reservasTable.addCell("Fecha_Fin");
             reservasTable.addCell("Total");
+             == == ==
+                    = List reservasList = new List();
+
+            reservasList.add("ID");
+            reservasList.add("ID_Cliente");
+            reservasList.add("ID_Habitacion");
+            reservasList.add("Fecha_Inicio");
+            reservasList.add("Fecha_Fin");
+            reservasList.add("Total");
+             >>> >>> > ba666feb0e7d3fc343a7e16fb6a38b315b35605e
 
             while (rs.next()) {
                 reservasTable.addCell(rs.getString("ID"));
