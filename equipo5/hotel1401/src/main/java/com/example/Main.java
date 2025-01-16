@@ -15,27 +15,21 @@ public class Main {
         // Menú principal
         do {
             System.out.println("Menú de Opciones:");
-            System.out.println("1. Meter una nueva reserva");
-            System.out.println("2. Sacar informe en PDF");
-            System.out.println("3. Sacar informe en Excel");
-            System.out.println("4. Salir");
-            System.out.print("Elige una opción (1-4): ");
+            System.out.println("1. Sacar informe en PDF");
+            System.out.println("2. Sacar informe en Excel");
+            System.out.println("3. Salir");
+            System.out.print("Elige una opción (1-3): ");
             opcion = scanner.nextInt();
 
             // Ejecutar según la opción seleccionada
             switch (opcion) {
                 case 1:
-                    // meterReserva();
+                    crearPdf.crearInformePDF();
                     break;
                 case 2:
-                    crearPdf.sacarInformePDF();
-
-                    break;
-                case 3:
-                    // sacarInformeExcel();
                     crearxlsx.crearxlsx();
                     break;
-                case 4:
+                case 3:
                     System.out.println("Saliendo del programa...");
                     break;
                 default:

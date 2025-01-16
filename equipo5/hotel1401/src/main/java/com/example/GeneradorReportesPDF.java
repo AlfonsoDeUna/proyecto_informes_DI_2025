@@ -14,7 +14,7 @@ import com.itextpdf.layout.properties.VerticalAlignment;
 
 public class GeneradorReportesPDF {
 
-    public void sacarInformePDF() {
+    public void crearInformePDF() {
         String namePdf = "proyecto_informes_DI_2025/equipo5/Reportes/reservas.pdf";
         String bdUrl = "jdbc:sqlite:proyecto_informes_DI_2025/equipo5/hotel1401/src/main/Database/hotel.db";
 
@@ -42,12 +42,14 @@ public class GeneradorReportesPDF {
             title.setVerticalAlignment(VerticalAlignment.MIDDLE); // Alinear el titulo de manera vertical y en el centro de la pantalla
             title.setFontSize(32); // Tamaño de la letra del título
 
-            document.add(title);
+            document.add(title); // Añadir al informe Pdf el parágrafo
 
+            // Espacios en blanco
             document.add(new Paragraph(""));
             document.add(new Paragraph(""));
             document.add(new Paragraph(""));
 
+            // Crear tabla para llamar a la BD e implemente los valores
             Table reservasTable = new Table(6);
             reservasTable.addCell("ID");
             reservasTable.addCell("ID_Cliente");
@@ -65,14 +67,14 @@ public class GeneradorReportesPDF {
                 reservasTable.addCell(rs.getString("Total"));
             }
 
-            document.add(reservasTable);
-            rs.close();
-            stmt.close();
-            conn.close();
+            document.add(reservasTable); // Añadir al informe la tabla
+            rs.close(); // Cerrar ResultSet
+            stmt.close(); // Cerrar Statement
+            conn.close(); // Cerrar conexion con la BD
 
             System.out.println("PDF creado ");
 
-            document.close();
+            document.close(); // Cerrar informe
 
             System.out.println("PDF creado en: " + namePdf);
 
