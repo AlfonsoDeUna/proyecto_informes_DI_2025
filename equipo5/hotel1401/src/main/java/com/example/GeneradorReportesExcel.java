@@ -15,16 +15,16 @@ public class GeneradorReportesExcel {
 
     public void crearxlsx() {
 
-        String dbUrl = "jdbc:sqlite:equipo5/hotel1401/src/main/Database/hotel.db"; // Ruta correcta de tu base de datos
-        String dest = "equipo5/Reportes/Reservas.xlsx"; // Archivo Excel a generar
+        String dbUrl = "jdbc:sqlite:equipo5/hotel1401/src/main/Database/hotel.db";
+        String dest = "equipo5/Reportes/Reservas.xlsx"; 
 
-        // Usar try-with-resources para asegurarnos de cerrar los recursos
+        
         try (
             Connection conn = DriverManager.getConnection(dbUrl);
             Statement stmt = conn.createStatement();
             Workbook workbook = new XSSFWorkbook();
         ) {
-            // Registrar el controlador JDBC de SQLite
+            
             Class.forName("org.sqlite.JDBC");
 
             // Consulta SQL
@@ -46,7 +46,7 @@ public class GeneradorReportesExcel {
             """;
             ResultSet rs = stmt.executeQuery(sql);
 
-            // Crear hoja de trabajo y encabezados
+            
             Sheet sheet = workbook.createSheet("Reservas");
             Row headerRow = sheet.createRow(0);
 
@@ -60,7 +60,6 @@ public class GeneradorReportesExcel {
                 headerRow.createCell(i).setCellValue(headers[i]);
             }
 
-            // Llenar los datos
             int rowNum = 1;
             while (rs.next()) {
                 Row row = sheet.createRow(rowNum++);
@@ -75,12 +74,12 @@ public class GeneradorReportesExcel {
                 row.createCell(7).setCellValue(rs.getDouble("Total"));
             }
 
-            // Ajustar el tamaño de todas las columnas
+            
             for (int i = 0; i < headers.length; i++) {
                 sheet.autoSizeColumn(i);
             }
 
-            // Escribir el archivo en disco
+            
             try (FileOutputStream fileOut = new FileOutputStream(dest)) {
                 workbook.write(fileOut);
             }
