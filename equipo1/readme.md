@@ -98,7 +98,8 @@ Se prepare la base de datos.
 Se generen reportes en formatos PDF y CSV. Esto la convierte en el núcleo funcional del sistema, integrando todas las funcionalidades desarrolladas en las demás clases.
 
 ### Manual de usuario
- [text](<../../Manual de Usuario.pdf>)
+ [MANUAL DE USUARIO](<./equipo1/ManualDeUsuario.pdf>)
+
 modelo entidad relacion:
 ![image](https://github.com/user-attachments/assets/633bced4-b0a0-473a-8f9f-a79cbb88513c)
 
